@@ -29,11 +29,23 @@ console.log('Database pool created successfully')
 
 
 
-app.get('/students',function(req,res){
+app.get('/students', function(req, res) {
+    conn.query({
+        sql: 'SELECT * FROM students',
+        timeout: 10000
+    }, (err, results) => {
+        if (err) {
+            console.error('Database query error:', err)
+            return res.status(500).json({
+                message: 'Database query failed',
+                error: err.message
+            })
+        }
 
-    conn.query('SELECT * FROM students',(err,results)=>{
-        if(err) throw new Error(err)
-        res.json({message: 'Got students ',results})
+        res.json({
+            message: 'Got students',
+            results
+        })
     })
 })
 
