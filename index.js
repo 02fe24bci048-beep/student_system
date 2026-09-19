@@ -27,10 +27,6 @@ const conn = mysql.createPool({
 console.log('Database pool created successfully')
 
 
-conn.connect(function(err){
-    if(err) throw new Error(err)
-        console.log('Database connected successfully')
-})
 
 
 app.get('/students',function(req,res){
